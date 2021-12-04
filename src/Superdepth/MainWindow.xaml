@@ -4,17 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Superdepth"
-        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+        d:DataContext="{d:DesignInstance Type=local:AppViewModel}"
         mc:Ignorable="d"
-        Title="SuperDepth" 
+        Title="SuperDepth" TitleCharacterCasing="Normal" 
         Width="800" Height="450" ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen">
-    <mah:MetroWindow.RightWindowCommands>
-        <mah:WindowCommands>
-         
-        </mah:WindowCommands>
-    </mah:MetroWindow.RightWindowCommands>
+
     <Grid>
-        
+        <Button Content="Browse(Input)" HorizontalAlignment="Left" Margin="658,136,0,0" VerticalAlignment="Top" mah:ControlsHelper.ContentCharacterCasing="Normal" Height="27" Width="132" Click="OnBrowseInputClick" />
+        <TextBox Text="{Binding InputFilePath}" AllowDrop="True" PreviewDrop="InputFileDrop" PreviewDragOver="InputFileDragOver" mah:TextBoxHelper.Watermark="Input" mah:TextBoxHelper.ClearTextButton="True" HorizontalAlignment="Left" Margin="10,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="643" Height="13"/>
+        <Button Content="Run" HorizontalAlignment="Left" Height="132" Margin="658,276,0,0" VerticalAlignment="Top" Width="132" mah:ControlsHelper.ContentCharacterCasing="Normal" Click="OnRunClick"/>
+        <TextBox x:Name="LogTextBox" HorizontalAlignment="Left" Margin="10,276,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="643" Height="132" IsReadOnly="True"/>
+
+
+
     </Grid>
 </mah:MetroWindow>

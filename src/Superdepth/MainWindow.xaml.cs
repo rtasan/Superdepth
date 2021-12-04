@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using MahApps.Metro.Controls;
 
 namespace Superdepth
@@ -22,13 +23,49 @@ namespace Superdepth
     /// </summary>
     public partial class MainWindow
     {
+        private AppViewModel ViewModel = new AppViewModel();
+
         public MainWindow()
         {
+            DataContext = ViewModel;
             InitializeComponent();
         }
-        
-        
-        
 
+        private void OnBrowseInputClick(object sender, RoutedEventArgs e)
+        {
+            CommonOpenFileDialog openFileDialog = new CommonOpenFileDialog { InitialDirectory= Directory.GetCurrentDirectory() , IsFolderPicker=false};
+            if (openFileDialog.ShowDialog()==CommonFileDialogResult.Ok)
+            { 
+                ViewModel.InputFilePath = openFileDialog.FileName;
+            }
+        }
+
+        private void OnRunClick(object sender, RoutedEventArgs e)
+        {
+            // LogTextBox.AppendText(ViewModel.InputFilePath+"\n");
+            // LogTextBox.ScrollToEnd();
+        }
+
+        private void InputFileDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                ViewModel.InputFilePath = files[0];
+            }
+        }
+
+        private void InputFileDragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
+            {
+                e.Effects = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effects = DragDropEffects.None;
+            }
+            e.Handled = true;
+        }
     }
 }
