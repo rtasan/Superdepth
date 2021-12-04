@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using System.IO;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using MahApps.Metro.Controls;
+using Superdepth.Processor;
+using Superdepth.IO;
 
 namespace Superdepth
 {
@@ -29,6 +31,7 @@ namespace Superdepth
         {
             DataContext = ViewModel;
             InitializeComponent();
+            Logger.logTextBox = LogTextBox;
         }
 
         private void OnBrowseInputClick(object sender, RoutedEventArgs e)
@@ -42,6 +45,7 @@ namespace Superdepth
 
         private void OnRunClick(object sender, RoutedEventArgs e)
         {
+            FileProcess.ProcessFile(ViewModel.InputFilePath);
             // LogTextBox.AppendText(ViewModel.InputFilePath+"\n");
             // LogTextBox.ScrollToEnd();
         }
