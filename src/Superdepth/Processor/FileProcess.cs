@@ -12,7 +12,7 @@ namespace Superdepth.Processor
     {
         // 全体のプロセス
         // InputFilePathを受け取り、各プロセッサーに流して処理
-        public static void ProcessFile(string inputPath)
+        public static async Task ProcessFile(string inputPath)
         {
             if (!File.Exists(inputPath) || String.IsNullOrEmpty(inputPath)) return; // check
 
@@ -24,13 +24,25 @@ namespace Superdepth.Processor
             Directory.CreateDirectory(outputDir);
             Logger.Log(inputDir);
             Logger.Log(outputDir);
+
+            //動画のfps取得
+            double fps = await FFMpegProcess.GetFrameRateAsync(inputPath);
+            Logger.Log(fps.ToString());
                        
             // inputPathで与えられる動画をFFMpegProcessで連番画像に変換->inputDirに保存
+            await FFMpegProcess.VideoToImage(inputPath, inputDir, fps);
 
 
             // 一時ディレクトリ内のファイルを処理 AiProcess
-            AiProcess.computeAI(inputDir, outputDir);
+            //AiProcess.computeAI(inputDir, outputDir);
+
             // output内の連番画像を動画にする
+            string videoOutDir = Path.GetDirectoryName(inputPath);
+            await FFMpegProcess.ImageToVideo(inputDir, videoOutDir, fps, "output");
+
+            // 後処理
+            Directory.Delete(inputDir, true);
+            Directory.Delete(outputDir, true);
 
         }
     }
