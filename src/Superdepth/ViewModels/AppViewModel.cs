@@ -19,6 +19,7 @@ namespace Superdepth
             set => SetProperty(ref _InputFilePath, value);
         }
 
+        
 
         private void SetProperty<T> (ref T stg, T value, [CallerMemberName] string propertyName = null)
         {

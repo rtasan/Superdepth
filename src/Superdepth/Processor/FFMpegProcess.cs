@@ -18,13 +18,14 @@ namespace Superdepth.Processor
         // ffmpegを用いて、inputの動画を作業用一時フォルダーに、連番画像で展開する
         public static async Task VideoToImage(string inputPath, string outputDir, double frameRate)
         {
+            Logger.Log("FFMpeg: Converting a video into images");
             await FFMpegArguments.FromFileInput(inputPath).OutputToFile($"{outputDir}\\image_%6d.png",false,options=>options.WithVideoCodec(VideoCodec.Png).WithFramerate(frameRate)).ProcessAsynchronously();
         }
 
         // ffmpegを用いて、作業用一時フォルダーoutput/内の連番画像を、動画に戻す
         public static async Task ImageToVideo(string outputDir, string videoOutDir, double frameRate, string outputFilename)
         {
-            
+            Logger.Log("FFMpeg: Converting images into a video");
             IEnumerable<string> inputPaths = Directory.EnumerateFiles(outputDir);
             await FFMpegArguments.FromConcatInput(inputPaths, option=>option.WithCustomArgument($"-framerate {frameRate}")).OutputToFile($"{videoOutDir}\\{outputFilename}.mp4", true, options => options.WithVideoCodec(VideoCodec.LibX264).WithFramerate(frameRate)).ProcessAsynchronously();
             

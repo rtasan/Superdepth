@@ -10,7 +10,7 @@ namespace Superdepth.Processor
     internal class AiProcess
     {
         // 作業用一時フォルダーに展開された連番画像を処理する
-        public static void computeAI(string inputDir, string outputDir)
+        public static async Task ComputeAI(string inputDir, string outputDir)
         {
             Logger.Log("Start computing depth map");
         }

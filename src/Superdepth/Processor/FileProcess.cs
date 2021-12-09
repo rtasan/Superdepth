@@ -22,19 +22,19 @@ namespace Superdepth.Processor
             string outputDir = Path.Join(Path.GetDirectoryName(inputPath), "tempOutputSuperdepth");
             Directory.CreateDirectory(inputDir);
             Directory.CreateDirectory(outputDir);
-            Logger.Log(inputDir);
-            Logger.Log(outputDir);
+            Logger.Log("Successfully created input directory:"+inputDir);
+            Logger.Log("Successfully created output directory:"+outputDir);
 
             //動画のfps取得
             double fps = await FFMpegProcess.GetFrameRateAsync(inputPath);
-            Logger.Log(fps.ToString());
+            Logger.Log("Framerate:"+fps.ToString()); ;
                        
             // inputPathで与えられる動画をFFMpegProcessで連番画像に変換->inputDirに保存
             await FFMpegProcess.VideoToImage(inputPath, inputDir, fps);
 
 
             // 一時ディレクトリ内のファイルを処理 AiProcess
-            //AiProcess.computeAI(inputDir, outputDir);
+            await AiProcess.ComputeAI(inputDir, outputDir);
 
             // output内の連番画像を動画にする
             string videoOutDir = Path.GetDirectoryName(inputPath);
