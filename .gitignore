@@ -261,6 +261,9 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+
+# manual options
 src/.vs/Superdepth/project-colors.json
 src/.vs/Superdepth/v17/.futdcache.v1
 src/.vs/Superdepth/project-colors.json
+src/Python/devenv/
