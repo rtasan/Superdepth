@@ -267,3 +267,5 @@ src/.vs/Superdepth/project-colors.json
 src/.vs/Superdepth/v17/.futdcache.v1
 src/.vs/Superdepth/project-colors.json
 src/Python/devenv/
+src/Python/pythonenv
+src/Python/_local_env

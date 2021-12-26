@@ -38,7 +38,7 @@ namespace Superdepth.Processor
 
             // output内の連番画像を動画にする
             string videoOutDir = Path.GetDirectoryName(inputPath);
-            await FFMpegProcess.ImageToVideo(inputDir, videoOutDir, fps, "output");
+            await FFMpegProcess.ImageToVideo(outputDir, videoOutDir, fps, "output");
 
             // 後処理
             Directory.Delete(inputDir, true);

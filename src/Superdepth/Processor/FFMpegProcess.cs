@@ -28,7 +28,7 @@ namespace Superdepth.Processor
             Logger.Log("FFMpeg: Converting images into a video");
             IEnumerable<string> inputPaths = Directory.EnumerateFiles(outputDir);
             await FFMpegArguments.FromConcatInput(inputPaths, option=>option.WithCustomArgument($"-framerate {frameRate}")).OutputToFile($"{videoOutDir}\\{outputFilename}.mp4", true, options => options.WithVideoCodec(VideoCodec.LibX264).WithFramerate(frameRate)).ProcessAsynchronously();
-            
+            Logger.Log("Done!!");
         }
 
         public static async Task<double> GetFrameRateAsync(string inputPath)
